@@ -1,7 +1,14 @@
 app.component('review-form', {
   template:
   /*html*/
-  `<form class="review-form" @submit.prevent="onSubmit">
+  
+  `
+  <div class="product-container">
+    <div class="product-image">
+      <img v-bind:src="image">
+    </div>     
+  </div>
+  <form class="review-form" @submit.prevent="onSubmit">
     <h3>Naves espaciales</h3>
     <label for="name">Nombre:</label>
     <input id="name" v-model="name">
@@ -11,12 +18,14 @@ app.component('review-form', {
 
     <label for="rating">Raza:</label>
     <select id="rating" v-model.number="rating">
-      <option>Alien</option>
-      <option>Humano</option>
-      <option>Predator</option>
+      <option v-for="(variant, index) in variants" 
+        :key="variant.id" 
+        @click="updateVariant(index)" 
+        class="color-circle" 
+        :style="{ backgroundColor: variant.color }"> {{variants[index].raza}} </option>
     </select>
 
-    <input class="button" type="submit" value="Enviar">  
+    <input class="button" type="submit" value="Añadir">  
 
   </form>`,
   data() {
@@ -24,6 +33,12 @@ app.component('review-form', {
       name: '',
       review: '',
       rating: null,
+      selectedVariant: 0,
+      variants: [
+        { id: 2234, raza: 'Alien', image: './assets/img/aliens.jpg'},
+        { id: 2235, raza: 'Humano', image: './assets/img/humanos.webp'},
+        { id: 2236, raza: 'Predator', image: './assets/img/predator.jpg'}
+      ]
     }
   },
   methods: {
@@ -31,8 +46,7 @@ app.component('review-form', {
       if (this.name === '' || this.review === '' || this.rating === null || this.recommend === null) {
         alert('Los campos no están completos, por favor, rellénelos.')
         return
-      }
-
+      }      
       let productReview = {
         name: this.name,
         review: this.review,
@@ -44,7 +58,16 @@ app.component('review-form', {
       this.name = ''
       this.review = ''
       this.rating = null
-
+      
+    },
+    updateVariant(index) {
+      this.selectedVariant = index
     }
+
+  },
+  computed: {
+      image() {
+          return this.variants[this.selectedVariant].image
+      }
   }
 })

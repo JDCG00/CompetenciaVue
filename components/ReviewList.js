@@ -12,7 +12,7 @@ app.component('review-list', {
   <h3>Datos:</h3>
     <ul>
       <li v-for="(review, index) in reviews" :key="index">
-        {{ review.name }} de raza {{ review.rating }} con potencia de: 
+        {{ review.name }} de raza {{ review.rating }} conduce una nave con potencia de: 
         <br/>
         --{{ review.review }}-- caballos.
         <br/>
