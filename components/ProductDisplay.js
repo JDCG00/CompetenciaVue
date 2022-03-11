@@ -12,6 +12,13 @@ app.component('product-display', {
       <div class="product-image">
         <img v-bind:src="image">
       </div>
+      <div 
+          v-for="(variant, index) in variants" 
+          :key="variant.id" 
+          @click="updateVariant(index)" 
+          class="color-circle" 
+          :style="{ backgroundColor: variant.color }">
+        </div>
       <div class="product-info">
         <h1>{{ title }}</h1>
       </div>
