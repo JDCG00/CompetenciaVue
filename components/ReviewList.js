@@ -14,7 +14,7 @@ app.component('review-list', {
       <li v-for="(review, index) in reviews" :key="index">
         {{ review.name }} de raza {{ review.rating }} conduce una nave con potencia de: 
         <br/>
-        --{{ review.review }}-- caballos.
+        " {{ review.review }} " caballos.
         <br/>
       </li>
     </ul>
